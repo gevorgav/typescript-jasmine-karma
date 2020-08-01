@@ -35,6 +35,6 @@ module.exports = (config) => {
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: localBrowsers,
-    singleRun: false,
+    singleRun: true,
   })
 };
