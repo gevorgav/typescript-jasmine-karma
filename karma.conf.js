@@ -1,4 +1,4 @@
-const realBrowser = String(process.env.BROWSER).match(/^(1|true)$/gi)
+const realBrowser = String(process.env.BROWSER).match(/^(1|true)$/gi);
 const travisLaunchers = {
   chrome_travis: {
     base: 'Chrome',
@@ -6,7 +6,7 @@ const travisLaunchers = {
   }
 };
 
-const localBrowsers = realBrowser ? Object.keys(travisLaunchers) : [ 'Chrome' ]
+const localBrowsers = realBrowser ? Object.keys(travisLaunchers) : [ 'Chrome' ];
 
 module.exports = (config) => {
   config.set({
@@ -16,7 +16,8 @@ module.exports = (config) => {
       'karma-jasmine',
       'karma-chrome-launcher',
       'karma-typescript',
-      'karma-spec-reporter',
+      'karma-spec-reporter',  //
+      // 'karma-jasmine-html-reporter' for 'kjhtml'
     ],
     karmaTypescriptConfig: {
       tsconfig: "./tsconfig.json",
@@ -27,14 +28,13 @@ module.exports = (config) => {
     },
     files: [ { pattern: 'src/**/*.ts' }, { pattern: 'test/**/*.spec.ts' } ],
     preprocessors: {
-      'src/**/*.ts': [ 'karma-typescript' ],
-      'test/**/*.spec.ts': [ 'karma-typescript' ]
+      '**/*.ts': [ 'karma-typescript' ],
     },
-    reporters: [ 'spec', 'karma-typescript' ],
+    reporters: [  'karma-typescript', 'spec'], // Use 'kjhtml' reporter for print result in browser.
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: localBrowsers,
-    singleRun: false
+    singleRun: false,
   })
 };
